@@ -1,6 +1,6 @@
-export type TDTSortDirection = 'asc' | 'desc';
+export type TDTSortDirection = "asc" | "desc";
 
-export type TDTCellType = 'dropdown' | 'date';
+export type TDTCellType = "dropdown" | "date";
 
 export type TDTId = string | number;
 
@@ -12,7 +12,7 @@ type TDTButton<T> = {
 };
 
 type TDTRowButton<T> = {
-  label: string;
+  label: string | JSX.Element;
   title?: string;
   color?: string;
   fn: (data: T) => void;

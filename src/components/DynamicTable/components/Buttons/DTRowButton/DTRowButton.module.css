@@ -2,17 +2,19 @@
   --size: 2.4rem;
   height: var(--size);
   width: auto;
+  min-width: var(--size);
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
   padding: 0 1rem;
-  background-color: var(--primary-c);
+  background-color: transparent;
+  color: var(--primary-c);
+  border: 1px solid var(--primary-c);
   border-radius: var(--radius, 0.4rem);
   outline: 1px solid transparent;
   font-weight: bold;
-  color: white;
-  transition: all 0.2s;
+  transition: all 0.1s;
   cursor: pointer;
   box-sizing: border-box;
 
@@ -35,8 +37,11 @@
   }
 
   &.icon {
-    width: var(--size);
-    min-width: var(--size);
     padding: 0;
+
+    svg {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
   }
 }
