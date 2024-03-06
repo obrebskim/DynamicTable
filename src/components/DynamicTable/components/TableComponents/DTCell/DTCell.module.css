@@ -1,0 +1,59 @@
+.cell {
+  position: relative;
+  padding: 0 2rem;
+
+  &.separator:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 0.1rem;
+    background-color: var(--primary-c, rgb(141, 102, 205));
+    opacity: 0.3;
+  }
+
+  & .cell-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  & .icon {
+    --size: 1.4rem;
+    height: var(--size);
+    width: var(--size);
+    color: var(--placeholder-c);
+    transition: 0.2s;
+    cursor: pointer;
+
+    &:hover {
+      color: var(-font-c);
+    }
+  }
+
+  & p {
+    text-align: left;
+
+    &.number {
+      text-align: right;
+    }
+
+    &.bold {
+      font-weight: bold;
+    }
+
+    &.pointer {
+      cursor: pointer;
+    }
+  }
+
+  &:first-child {
+    & .edition-window {
+      left: auto;
+      right: 0;
+      translate: none;
+    }
+  }
+}

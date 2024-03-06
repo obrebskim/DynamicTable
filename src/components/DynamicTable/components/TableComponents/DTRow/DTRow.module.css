@@ -1,0 +1,17 @@
+.row {
+  height: 4rem;
+  background-color: var(--background-c);
+
+  &:nth-child(even) {
+    background-color: var(--row-c);
+  }
+  &.selected {
+    background-color: rgba(0, 30, 255, 0.1);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    &.selected {
+      background-color: rgba(141, 102, 205, 0.3);
+    }
+  }
+}

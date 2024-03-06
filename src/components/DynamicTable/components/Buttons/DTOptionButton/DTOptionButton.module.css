@@ -1,0 +1,41 @@
+.button {
+  --size: 2.4rem;
+  height: var(--size);
+  width: var(--size);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: var(--primary-c);
+  border-radius: var(--radius, 0.4rem);
+  outline: 1px solid transparent;
+  font-weight: bold;
+  color: white;
+  transition: all 0.2s;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  &:hover {
+    scale: 1.1;
+  }
+
+  &:active {
+    translate: 0 0;
+    scale: 1;
+  }
+
+  &:focus {
+    outline: 1px solid var(--focus-c, pink);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  & svg {
+    --size: 1.4rem;
+    width: var(--size);
+    height: var(--size);
+  }
+}

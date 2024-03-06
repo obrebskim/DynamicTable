@@ -1,0 +1,17 @@
+.input {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  translate: -50%;
+  height: 100%;
+  padding: 0 1rem;
+  border: 1px solid var(--primary-c);
+  border-radius: var(--radius, 0.4rem);
+  box-shadow: var(--shadow);
+  z-index: 10;
+
+  &:focus {
+    outline: 1px solid var(--focus-c);
+    border: 1px solid var(--focus-c);
+  }
+}
