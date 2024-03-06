@@ -1,6 +1,6 @@
 import DynamicTable from "./components/DynamicTable/DynamicTable";
 import DTCloseIcon from "./components/DynamicTable/components/Icons/DTClose.icon";
-import { TDTColumnDefs } from "./components/DynamicTable/types/types";
+import { TDTConfiguration } from "./components/DynamicTable/types/types";
 
 type TData = { id: number; name: string; age: number; isActive: boolean };
 
@@ -11,7 +11,7 @@ const data: TData[] = [
   { id: 4, age: 32, isActive: true, name: "Maciek" },
 ];
 
-const config: TDTColumnDefs<TData> = {
+const config: TDTConfiguration<TData> = {
   columns: [
     { label: "Id", propertyName: "id" },
     {
@@ -41,6 +41,7 @@ const config: TDTColumnDefs<TData> = {
           console.log(row);
         },
         title: "Delete",
+        color: "orangered",
       },
     ],
     buttons: [
@@ -58,7 +59,7 @@ const config: TDTColumnDefs<TData> = {
 function App() {
   return (
     <>
-      <DynamicTable configuration={config} data={data} />
+      <DynamicTable configuration={config} data={data} loading />
     </>
   );
 }

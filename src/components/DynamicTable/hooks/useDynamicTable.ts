@@ -1,11 +1,19 @@
-import { useCallback, useEffect, useState } from 'react';
-import { IndexableIDTExtend, TDTColumnDefs, TDTSortDirection } from '../types/types';
+import { useCallback, useEffect, useState } from "react";
+import {
+  IndexableIDTExtend,
+  TDTConfiguration,
+  TDTSortDirection,
+} from "../types/types";
 
-const createFilters = <T extends { id: string | number }>(config: TDTColumnDefs<T>) => {
-  const sortable = config.columns.filter((column) => column.interactions?.sortable);
+const createFilters = <T extends { id: string | number }>(
+  config: TDTConfiguration<T>
+) => {
+  const sortable = config.columns.filter(
+    (column) => column.interactions?.sortable
+  );
   const filters: Record<string, string> = {};
   sortable.forEach((column) => {
-    filters[column.propertyName] = '';
+    filters[column.propertyName] = "";
   });
   return filters;
 };
@@ -18,18 +26,18 @@ function useDynamicTable<T extends { id: string | number }>({
   onRowSelect,
 }: {
   data: T[];
-  configuration: TDTColumnDefs<T>;
+  configuration: TDTConfiguration<T>;
   onRowSelect?: (id: string | number) => void;
 }) {
   // STATE
   const [dataset, setDataset] = useState<Extendable<T>[]>(
-    data.map((row) => ({ ...row, id: row.id, checked: false })),
+    data.map((row) => ({ ...row, id: row.id, checked: false }))
   );
   const [columns, setColumns] = useState(
     configuration.columns.map((column) => ({
       ...column,
       visible: column.visible !== undefined ? column.visible : true,
-    })),
+    }))
   );
   const [filteredDataset, setFilteredDataset] = useState(dataset);
   const [filters, setFilters] = useState(createFilters(configuration));
@@ -40,7 +48,9 @@ function useDynamicTable<T extends { id: string | number }>({
     let filtered = structuredClone(dataset);
     Object.keys(filters).forEach((key) => {
       filtered = filtered.filter((filter) =>
-        (filter[key] + '').toLowerCase().includes(filters[key as string].toLowerCase()),
+        (filter[key] + "")
+          .toLowerCase()
+          .includes(filters[key as string].toLowerCase())
       );
     });
     setFilteredDataset(filtered);
@@ -50,7 +60,9 @@ function useDynamicTable<T extends { id: string | number }>({
   const handleSelectRow = useCallback((id: number | string) => {
     if (configuration.options?.selectableRow) {
       setDataset((prev) =>
-        prev.map((row) => (row.id === id ? { ...row, checked: true } : { ...row, checked: false })),
+        prev.map((row) =>
+          row.id === id ? { ...row, checked: true } : { ...row, checked: false }
+        )
       );
     }
     if (onRowSelect) {
@@ -61,23 +73,29 @@ function useDynamicTable<T extends { id: string | number }>({
   const handleToggleVisibleColumn = useCallback((id: string) => {
     setColumns((prev) =>
       prev.map((column) =>
-        column.propertyName === id ? { ...column, visible: !column.visible } : { ...column },
-      ),
+        column.propertyName === id
+          ? { ...column, visible: !column.visible }
+          : { ...column }
+      )
     );
   }, []);
 
   const handleChangeData = useCallback(
-    (id: string | number, propertyName: string, value: boolean | string | number) => {
+    (
+      id: string | number,
+      propertyName: string,
+      value: boolean | string | number
+    ) => {
       setDataset((prev) =>
         prev.map((row) => {
           if (row.id === id) return { ...row, [propertyName]: value };
           else {
             return { ...row };
           }
-        }),
+        })
       );
     },
-    [],
+    []
   );
 
   const handleFilterBy = useCallback((propertyName: string, value: string) => {
@@ -88,21 +106,24 @@ function useDynamicTable<T extends { id: string | number }>({
     setFilters(createFilters(configuration));
   }, []);
 
-  const handleSort = useCallback((direction: TDTSortDirection, propertyName: string) => {
-    setDataset((prev) =>
-      [...prev].sort((a, b) => {
-        if (direction === 'asc') {
-          if (a[propertyName] > b[propertyName]) return 1;
-          if (a[propertyName] < b[propertyName]) return -1;
-          return 0;
-        } else {
-          if (a[propertyName] < b[propertyName]) return 1;
-          if (a[propertyName] > b[propertyName]) return -1;
-          return 0;
-        }
-      }),
-    );
-  }, []);
+  const handleSort = useCallback(
+    (direction: TDTSortDirection, propertyName: string) => {
+      setDataset((prev) =>
+        [...prev].sort((a, b) => {
+          if (direction === "asc") {
+            if (a[propertyName] > b[propertyName]) return 1;
+            if (a[propertyName] < b[propertyName]) return -1;
+            return 0;
+          } else {
+            if (a[propertyName] < b[propertyName]) return 1;
+            if (a[propertyName] > b[propertyName]) return -1;
+            return 0;
+          }
+        })
+      );
+    },
+    []
+  );
 
   return {
     dataset,

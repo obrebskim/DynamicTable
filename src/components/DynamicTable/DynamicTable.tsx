@@ -1,34 +1,37 @@
-import useDynamicTable from './hooks/useDynamicTable';
-import { TDTColumnDefs } from './types/types';
-import style from './DynamicTable.module.css';
-import DTButtonWrapper from './components/DTButtonWrapper/DTButtonWrapper';
-import DTOptionButton from './components/Buttons/DTOptionButton/DTOptionButton';
-import DTResetIcon from './components/Icons/DTReset.icon';
-import DTSettingsIcon from './components/Icons/DTSettings.icon';
-import DTFileIcon from './components/Icons/DTFile.icon';
-import DTTable from './components/TableComponents/DTTable/DTTable';
-import DTHeadRow from './components/TableComponents/DTHeadRow/DTHeadRow';
-import DTHeadCell from './components/TableComponents/DTHeadCell/DTHeadCell';
-import DTBody from './components/TableComponents/DTBody/DTBody';
-import DTRow from './components/TableComponents/DTRow/DTRow';
-import DTCell from './components/TableComponents/DTCell/DTCell';
-import DTButtonsCell from './components/TableComponents/DTButtonsCell/DTButtonsCell';
-import DTRowButton from './components/Buttons/DTRowButton/DTRowButton';
-import DTButton from './components/Buttons/DTButton/DTButton';
-import DTOptionWindow from './components/DTOptionWindow/DTOptionWindow';
+import useDynamicTable from "./hooks/useDynamicTable";
+import { TDTConfiguration } from "./types/types";
+import style from "./DynamicTable.module.css";
+import DTButtonWrapper from "./components/DTButtonWrapper/DTButtonWrapper";
+import DTOptionButton from "./components/Buttons/DTOptionButton/DTOptionButton";
+import DTResetIcon from "./components/Icons/DTReset.icon";
+import DTSettingsIcon from "./components/Icons/DTSettings.icon";
+import DTFileIcon from "./components/Icons/DTFile.icon";
+import DTTable from "./components/TableComponents/DTTable/DTTable";
+import DTHeadRow from "./components/TableComponents/DTHeadRow/DTHeadRow";
+import DTHeadCell from "./components/TableComponents/DTHeadCell/DTHeadCell";
+import DTBody from "./components/TableComponents/DTBody/DTBody";
+import DTRow from "./components/TableComponents/DTRow/DTRow";
+import DTCell from "./components/TableComponents/DTCell/DTCell";
+import DTButtonsCell from "./components/TableComponents/DTButtonsCell/DTButtonsCell";
+import DTRowButton from "./components/Buttons/DTRowButton/DTRowButton";
+import DTButton from "./components/Buttons/DTButton/DTButton";
+import DTOptionWindow from "./components/DTOptionWindow/DTOptionWindow";
+import DTLoader from "./components/DTLoader/DTLoader";
 
 function DynamicTable<T extends { id: string | number }>({
   configuration,
   data,
-  maxHeight = '100%',
-  maxWidth = '100%',
+  maxHeight = "100%",
+  maxWidth = "100%",
   onRowSelect,
+  loading,
 }: {
   data: T[];
   maxWidth?: string | number;
   maxHeight?: string | number;
-  configuration: TDTColumnDefs<T>;
+  configuration: TDTConfiguration<T>;
   onRowSelect?: (id: string | number) => void;
+  loading?: boolean;
 }) {
   const {
     columns,
@@ -46,22 +49,25 @@ function DynamicTable<T extends { id: string | number }>({
   } = useDynamicTable({ data, configuration, onRowSelect });
 
   return (
-    <div style={{ maxHeight, maxWidth }} className={style['dynamic-table-wrapper']}>
+    <div
+      style={{ maxHeight, maxWidth }}
+      className={style["dynamic-table-wrapper"]}
+    >
       <DTButtonWrapper>
         <DTOptionButton
           label={<DTResetIcon />}
-          title='Reset filter'
-          style={{ backgroundColor: 'var(--red)', borderColor: 'var(--red)' }}
+          title="Reset filter"
+          style={{ backgroundColor: "var(--red)", borderColor: "var(--red)" }}
           onClick={handleResetFilters}
-          data-testid='reset-button'
+          data-testid="reset-button"
         />
         <DTOptionButton
-          title='Options'
+          title="Options"
           label={<DTSettingsIcon />}
           onClick={() => setIsOptionWindowVisible((prev) => !prev)}
-          data-testid='option-button'
+          data-testid="option-button"
         />
-        <DTOptionButton title='Generate a file' label={<DTFileIcon />} />
+        <DTOptionButton title="Generate a file" label={<DTFileIcon />} />
       </DTButtonWrapper>
       <DTTable maxHeight={maxHeight} maxWidth={maxWidth}>
         <DTHeadRow>
@@ -82,11 +88,11 @@ function DynamicTable<T extends { id: string | number }>({
               ))}
             {configuration.options?.rowButtons && (
               <DTHeadCell
-                filterValue=''
-                label=''
+                filterValue=""
+                label=""
                 onSort={() => null}
                 onFilter={() => null}
-                propertyName=''
+                propertyName=""
               />
             )}
           </>
@@ -104,20 +110,27 @@ function DynamicTable<T extends { id: string | number }>({
                       id={tr.id}
                       propertyName={key}
                       value={tr[key]}
-                      bold={key === 'id'}
+                      bold={key === "id"}
                       editable={
-                        configuration.columns.find((column) => column.propertyName === key)
-                          ?.interactions?.editable
+                        configuration.columns.find(
+                          (column) => column.propertyName === key
+                        )?.interactions?.editable
                       }
                       onDataChange={handleChangeData}
-                      onRowSelect={key === 'id' ? () => handleSelectRow(tr.id) : undefined}
-                      pointer={key === 'id'}
+                      onRowSelect={
+                        key === "id" ? () => handleSelectRow(tr.id) : undefined
+                      }
+                      pointer={key === "id"}
                       separator={configuration.options?.rowSeparator}
                       type={
-                        configuration.columns.find((column) => column.propertyName === key)?.type
+                        configuration.columns.find(
+                          (column) => column.propertyName === key
+                        )?.type
                       }
                       options={
-                        configuration.columns.find((column) => column.propertyName === key)?.options
+                        configuration.columns.find(
+                          (column) => column.propertyName === key
+                        )?.options
                       }
                     />
                   ))}
@@ -128,7 +141,10 @@ function DynamicTable<T extends { id: string | number }>({
                         label={button.label}
                         title={button.title}
                         key={index}
-                        style={{ borderColor: button.color, color: button.color }}
+                        style={{
+                          borderColor: button.color,
+                          color: button.color,
+                        }}
                         onClick={() => button.fn(tr)}
                       />
                     ))}
@@ -147,6 +163,7 @@ function DynamicTable<T extends { id: string | number }>({
             key={index}
             style={{ borderColor: button.color, backgroundColor: button.color }}
             onClick={() => button.fn(dataset)}
+            disabled={dataset.length === 0 || loading}
           />
         ))}
       </DTButtonWrapper>
@@ -157,6 +174,7 @@ function DynamicTable<T extends { id: string | number }>({
           toggleColumnVisibility={handleToggleVisibleColumn}
         />
       )}
+      {loading && <DTLoader />}
     </div>
   );
 }

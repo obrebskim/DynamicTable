@@ -18,10 +18,10 @@
   border-radius: var(--radius, 0.4rem);
   background-color: transparent;
   opacity: 0.2;
-  transition: all 0.2s;
+  transition: all 0.1s;
 
   &.always-on {
-    background-color: var(--red, rgb(255,82,0));
+    background-color: var(--red, rgb(255, 82, 0));
   }
 }
 
@@ -35,10 +35,10 @@
   background-color: transparent;
   border: 1px solid var(--placeholder-c, #9b9b9b);
   border-radius: var(--radius, 0.4rem);
-  transition: all 0.2s;
+  transition: all 0.1s;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     left: 50%;
     top: 50%;
@@ -46,17 +46,17 @@
     width: 0.8rem;
     height: 0.8rem;
     border-radius: 10rem;
-    background-color: var(--primary-c,rgb(141,102,205));
+    background-color: var(--primary-c, rgb(141, 102, 205));
     opacity: 0;
-    transition: 0.2s;
+    transition: all 0.1s;
   }
 
   &.always-on {
-    border: 1px solid var(--red, rgb(255,82,0));
+    border: 1px solid var(--red, rgb(255, 82, 0));
 
     &::after {
       opacity: 1;
-      background-color: var(--red, rgb(255,82,0));
+      background-color: var(--red, rgb(255, 82, 0));
     }
   }
 }
@@ -65,24 +65,24 @@
   appearance: none;
 
   &:checked ~ .shadow {
-     background-color: var(--primary-c, rgb(141,102,205));
+    background-color: var(--primary-c, rgb(141, 102, 205));
 
-     &.always-on {
-      background-color: var(--green, rgb(0,196,139));
-     }
+    &.always-on {
+      background-color: var(--green, rgb(0, 196, 139));
+    }
   }
 
   &:checked ~ .round {
-    border: 1px solid var(--primary-c, rgb(141,102,205));
+    border: 1px solid var(--primary-c, rgb(141, 102, 205));
     &.always-on {
-      border: 1px solid var(--green, rgb(0,196,139));
+      border: 1px solid var(--green, rgb(0, 196, 139));
       &::after {
-        background-color: var(--green, rgb(0,196,139));
+        background-color: var(--green, rgb(0, 196, 139));
         opacity: 1;
       }
     }
     &::after {
-      background-color: var(--primary-c, rgb(141,102,205));
+      background-color: var(--primary-c, rgb(141, 102, 205));
       opacity: 1;
     }
   }

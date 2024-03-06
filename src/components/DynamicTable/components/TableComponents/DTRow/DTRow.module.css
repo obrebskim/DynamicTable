@@ -1,6 +1,7 @@
 .row {
   height: 4rem;
   background-color: var(--background-c);
+  transition: all 0.1s;
 
   &:nth-child(even) {
     background-color: var(--row-c);

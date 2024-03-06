@@ -28,7 +28,7 @@ export type TDTColumn = {
   options?: { label: string; value: string | number }[];
 };
 
-export type TDTColumnDefs<T> = {
+export type TDTConfiguration<T> = {
   columns: TDTColumn[];
   options?: {
     selectableRow?: boolean;

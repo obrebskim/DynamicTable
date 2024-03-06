@@ -3,7 +3,7 @@
   padding: 0 2rem;
 
   &.separator:not(:last-child)::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     right: 0;
@@ -25,7 +25,7 @@
     height: var(--size);
     width: var(--size);
     color: var(--placeholder-c);
-    transition: 0.2s;
+    transition: 0.1s;
     cursor: pointer;
 
     &:hover {
