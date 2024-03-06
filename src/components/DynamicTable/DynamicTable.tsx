@@ -60,14 +60,20 @@ function DynamicTable<T extends { id: string | number }>({
           style={{ backgroundColor: "var(--red)", borderColor: "var(--red)" }}
           onClick={handleResetFilters}
           data-testid="reset-button"
+          disabled={loading}
         />
         <DTOptionButton
           title="Options"
           label={<DTSettingsIcon />}
           onClick={() => setIsOptionWindowVisible((prev) => !prev)}
           data-testid="option-button"
+          disabled={loading}
         />
-        <DTOptionButton title="Generate a file" label={<DTFileIcon />} />
+        <DTOptionButton
+          title="Generate a file"
+          label={<DTFileIcon />}
+          disabled={loading}
+        />
       </DTButtonWrapper>
       <DTTable maxHeight={maxHeight} maxWidth={maxWidth}>
         <DTHeadRow>
