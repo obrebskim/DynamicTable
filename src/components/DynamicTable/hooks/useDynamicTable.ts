@@ -24,10 +24,12 @@ function useDynamicTable<T extends { id: string | number }>({
   configuration,
   data,
   onRowSelect,
+  onFileGenerate,
 }: {
   data: T[];
   configuration: TDTConfiguration<T>;
   onRowSelect?: (id: string | number) => void;
+  onFileGenerate?: (data: T[]) => void;
 }) {
   // STATE
   const [dataset, setDataset] = useState<Extendable<T>[]>(
@@ -67,6 +69,12 @@ function useDynamicTable<T extends { id: string | number }>({
     }
     if (onRowSelect) {
       onRowSelect(id);
+    }
+  }, []);
+
+  const handleFileGenerate = useCallback(() => {
+    if (onFileGenerate) {
+      onFileGenerate(dataset);
     }
   }, []);
 
@@ -139,6 +147,7 @@ function useDynamicTable<T extends { id: string | number }>({
     handleSort,
     handleFilterBy,
     handleResetFilters,
+    handleFileGenerate,
   };
 }
 export default useDynamicTable;

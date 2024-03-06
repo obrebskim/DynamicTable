@@ -56,10 +56,18 @@ const config: TDTConfiguration<TData> = {
   },
 };
 
+const generateFile = (data: TData[]) => {
+  console.log(data);
+};
+
 function App() {
   return (
     <>
-      <DynamicTable configuration={config} data={data} loading />
+      <DynamicTable
+        configuration={config}
+        data={data}
+        onFileGenerate={generateFile}
+      />
     </>
   );
 }

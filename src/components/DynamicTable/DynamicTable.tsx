@@ -24,6 +24,7 @@ function DynamicTable<T extends { id: string | number }>({
   maxHeight = "100%",
   maxWidth = "100%",
   onRowSelect,
+  onFileGenerate,
   loading,
 }: {
   data: T[];
@@ -31,6 +32,7 @@ function DynamicTable<T extends { id: string | number }>({
   maxHeight?: string | number;
   configuration: TDTConfiguration<T>;
   onRowSelect?: (id: string | number) => void;
+  onFileGenerate?: (data: T[]) => void;
   loading?: boolean;
 }) {
   const {
@@ -46,7 +48,8 @@ function DynamicTable<T extends { id: string | number }>({
     handleToggleVisibleColumn,
     isOptionWindowVisible,
     setIsOptionWindowVisible,
-  } = useDynamicTable({ data, configuration, onRowSelect });
+    handleFileGenerate,
+  } = useDynamicTable({ data, configuration, onRowSelect, onFileGenerate });
 
   return (
     <div
@@ -73,6 +76,7 @@ function DynamicTable<T extends { id: string | number }>({
           title="Generate a file"
           label={<DTFileIcon />}
           disabled={loading}
+          onClick={handleFileGenerate}
         />
       </DTButtonWrapper>
       <DTTable maxHeight={maxHeight} maxWidth={maxWidth}>
