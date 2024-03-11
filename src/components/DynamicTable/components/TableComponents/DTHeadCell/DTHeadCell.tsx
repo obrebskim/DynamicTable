@@ -1,12 +1,12 @@
-import React, { useRef, useState } from 'react';
-import clsx from 'clsx';
-import { TDTCellType, TDTSortDirection } from '../../../types/types';
-import useOnClickOutside from '../../../hooks/useOnClickOutside';
-import style from './DTHeadCell.module.css';
-import DTFilterIcon from '../../Icons/DTFilter.icon';
-import DTSortAscIcon from '../../Icons/DTSortAsc.icon';
-import DTSortDescIcon from '../../Icons/DTSortDesc.icon';
-import DTCloseIcon from '../../Icons/DTClose.icon';
+import React, { useRef, useState } from "react";
+import clsx from "clsx";
+import { TDTCellType, TDTSortDirection } from "../../../types/types";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import style from "./DTHeadCell.module.css";
+import DTFilterIcon from "../../Icons/DTFilter.icon";
+import DTSortAscIcon from "../../Icons/DTSortAsc.icon";
+import DTSortDescIcon from "../../Icons/DTSortDesc.icon";
+import DTCloseIcon from "../../Icons/DTClose.icon";
 
 type Props = {
   label: string;
@@ -38,11 +38,11 @@ const DTHeadCell = ({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === 'Enter') {
+    if (e.code === "Enter") {
       onFilter(propertyName, localFilterValue);
       setIsOpen(false);
     }
-    if (e.code === 'Escape') {
+    if (e.code === "Escape") {
       setIsOpen(false);
     }
   };
@@ -53,36 +53,41 @@ const DTHeadCell = ({
   };
 
   const handleReset = () => {
-    onFilter(propertyName, '');
-    setLocalFilterValue('');
+    onFilter(propertyName, "");
+    setLocalFilterValue("");
     setIsOpen(false);
   };
 
   return (
     <th className={style.th} ref={cellRef}>
-      <div className={style['th-wrapper']}>
+      <div
+        className={clsx(
+          style["th-wrapper"],
+          filterValue && style["with-filter"]
+        )}
+      >
         {label}
         {interactive &&
           (!isOpen ? (
             <DTFilterIcon
-              data-testid='filter-icon'
+              data-testid="filter-icon"
               className={style.icon}
               onClick={handleToggleFilters}
             />
           ) : (
             <DTCloseIcon
-              data-testid='close-icon'
+              data-testid="close-icon"
               className={style.icon}
               onClick={handleToggleFilters}
             />
           ))}
       </div>
       {interactive && (
-        <dialog open={isOpen} className={style['option-window']}>
+        <dialog open={isOpen} className={style["option-window"]}>
           <div className={style.wrapper}>
             <input
-              type={type === 'date' ? 'date' : 'text'}
-              className={style['filter-input']}
+              type={type === "date" ? "date" : "text"}
+              className={style["filter-input"]}
               placeholder={`filter by ${label}`}
               onChange={(e) => setLocalFilterValue(e.target.value)}
               onKeyDown={(e) => handleKeyDown(e)}
@@ -90,20 +95,23 @@ const DTHeadCell = ({
               ref={inputRef}
             />
             <button
-              data-testid='button-asc'
+              data-testid="button-asc"
               className={style.sort}
-              onClick={() => handleSort('asc')}
+              onClick={() => handleSort("asc")}
             >
               <DTSortAscIcon className={style.icon} />
             </button>
             <button
-              data-testid='button-desc'
+              data-testid="button-desc"
               className={style.sort}
-              onClick={() => handleSort('desc')}
+              onClick={() => handleSort("desc")}
             >
               <DTSortDescIcon className={style.icon} />
             </button>
-            <button className={clsx(style.sort, style.reset)} onClick={handleReset}>
+            <button
+              className={clsx(style.sort, style.reset)}
+              onClick={handleReset}
+            >
               Reset
             </button>
           </div>

@@ -8,7 +8,7 @@
   z-index: 10;
 
   &:not(:last-child)::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     right: 0;
@@ -20,6 +20,7 @@
 }
 
 .th-wrapper {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
@@ -28,7 +29,19 @@
   gap: 2rem;
 }
 
+.with-filter::after {
+  content: "";
+  position: absolute;
+  top: 30%;
+  right: -0.5rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 10rem;
+  background-color: var(--red);
+}
+
 .icon {
+  position: relative;
   --size: 1.4rem;
   width: var(--size);
   height: var(--size);
