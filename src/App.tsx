@@ -33,7 +33,7 @@ const config: TDTConfiguration<TData> = {
   ],
   options: {
     rowSeparator: true,
-    selectableRow: true,
+    selectableRow: false,
     rowButtons: [
       {
         label: <DTCloseIcon />,

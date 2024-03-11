@@ -1,12 +1,12 @@
-import React, { useRef, useState } from 'react';
-import clsx from 'clsx';
-import { TDTCellType, TDTId } from '../../../types/types';
-import useOnClickOutside from '../../../hooks/useOnClickOutside';
-import style from './DTCell.module.css';
-import DTCheckbox from '../../Buttons/DTCheckbox/DTCheckbox';
-import DTEditInput from '../../DTEditInput/DTEditInput';
-import DTEditIcon from '../../Icons/DTEdit.icon';
-import DTDropdown from '../../DTDropdown/DTDropdown';
+import React, { useRef, useState } from "react";
+import clsx from "clsx";
+import { TDTCellType, TDTId } from "../../../types/types";
+import useOnClickOutside from "../../../hooks/useOnClickOutside";
+import style from "./DTCell.module.css";
+import DTCheckbox from "../../Buttons/DTCheckbox/DTCheckbox";
+import DTEditInput from "../../DTEditInput/DTEditInput";
+import DTEditIcon from "../../Icons/DTEdit.icon";
+import DTDropdown from "../../DTDropdown/DTDropdown";
 
 type Props = {
   value: string | number | boolean;
@@ -18,7 +18,11 @@ type Props = {
   propertyName: string;
   type?: TDTCellType;
   options?: { label: string; value: string | number }[];
-  onDataChange?: (id: TDTId, propertyName: string, value: boolean | string | number) => void;
+  onDataChange?: (
+    id: TDTId,
+    propertyName: string,
+    value: boolean | string | number
+  ) => void;
   onRowSelect?: () => void;
 };
 
@@ -35,14 +39,17 @@ const DTCell = ({
   type,
   options = [],
 }: Props) => {
-  const [editedValue, setEditionValue] = useState<string | number | boolean>(false);
+  const [editedValue, setEditionValue] = useState<string | number | boolean>(
+    false
+  );
   const inputRef = useRef<HTMLInputElement>(null);
   const { isOpen, setIsOpen } = useOnClickOutside(inputRef);
   const dropdownRef = useRef<HTMLUListElement>(null);
-  const { isOpen: isDropdown, setIsOpen: setIsDropdown } = useOnClickOutside(dropdownRef);
+  const { isOpen: isDropdown, setIsOpen: setIsDropdown } =
+    useOnClickOutside(dropdownRef);
 
   const handleEditionOpen = async () => {
-    if (type === 'dropdown') {
+    if (type === "dropdown") {
       setIsDropdown(true);
     } else {
       await setIsOpen(true);
@@ -51,15 +58,15 @@ const DTCell = ({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === 'Escape') {
+    if (e.code === "Escape") {
       setIsOpen(false);
     }
-    if (e.code === 'Enter') {
+    if (e.code === "Enter") {
       if (onDataChange) {
         onDataChange(
           id,
           propertyName,
-          typeof value === 'number' ? Number(editedValue) : editedValue,
+          typeof value === "number" ? Number(editedValue) : editedValue
         );
       }
       setIsOpen(false);
@@ -74,46 +81,64 @@ const DTCell = ({
   };
 
   return (
-    <td onClick={onRowSelect} className={clsx(style.cell, separator && style.separator)}>
-      <div className={style['cell-wrapper']}>
-        {typeof value === 'boolean' ? (
+    <td
+      onClick={onRowSelect}
+      className={clsx(
+        style.cell,
+        separator &&
+          style.separator &&
+          propertyName === "id" &&
+          onRowSelect &&
+          style.cursor
+      )}
+    >
+      <div className={style["cell-wrapper"]}>
+        {typeof value === "boolean" ? (
           editable ? (
             <DTCheckbox
-              mode='boolean'
+              mode="boolean"
               checked={value}
-              onChange={() => (onDataChange ? onDataChange(id, propertyName, !value) : () => null)}
+              onChange={() =>
+                onDataChange
+                  ? onDataChange(id, propertyName, !value)
+                  : () => null
+              }
             />
           ) : (
-            <DTCheckbox mode='boolean' checked={value} readOnly />
+            <DTCheckbox mode="boolean" checked={value} readOnly />
           )
         ) : (
           <p
             className={clsx(
-              typeof value === 'number' && 'number',
-              bold && 'bold',
-              pointer && pointer,
+              typeof value === "number" && "number",
+              bold && "bold",
+              pointer && pointer
             )}
           >
             {value}
           </p>
         )}
-        {editable && typeof value !== 'boolean' && (
+        {editable && typeof value !== "boolean" && (
           <DTEditIcon
-            data-testid='edit-button'
+            data-testid="edit-button"
             className={style.icon}
             onClick={handleEditionOpen}
           />
         )}
       </div>
-      {isDropdown && type === 'dropdown' && (
-        <DTDropdown ref={dropdownRef} onChange={handleDropdownChange} options={options} />
+      {isDropdown && type === "dropdown" && (
+        <DTDropdown
+          ref={dropdownRef}
+          onChange={handleDropdownChange}
+          options={options}
+        />
       )}
-      {isOpen && typeof value !== 'boolean' && type !== 'dropdown' && (
+      {isOpen && typeof value !== "boolean" && type !== "dropdown" && (
         <form>
           <DTEditInput
-            type={type === 'date' ? 'date' : typeof value}
+            type={type === "date" ? "date" : typeof value}
             ref={inputRef}
-            defaultValue={type === 'date' ? value : undefined}
+            defaultValue={type === "date" ? value : undefined}
             placeholder={value.toString()}
             onKeyDown={(e) => handleKeyDown(e)}
             onChange={(e) => setEditionValue(e.target.value)}

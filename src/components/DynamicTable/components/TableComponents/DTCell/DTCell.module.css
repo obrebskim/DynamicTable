@@ -13,6 +13,10 @@
     opacity: 0.3;
   }
 
+  &.cursor {
+    cursor: pointer;
+  }
+
   & .cell-wrapper {
     display: flex;
     align-items: center;
