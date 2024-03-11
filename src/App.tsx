@@ -67,6 +67,7 @@ function App() {
         configuration={config}
         data={data}
         onFileGenerate={generateFile}
+        loading={true}
       />
     </>
   );

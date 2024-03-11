@@ -2,6 +2,7 @@
   position: relative;
   display: grid;
   min-width: 26rem;
+  width: fit-content;
   grid-template-rows: 2.6rem auto 4rem;
   gap: 1rem;
   transition: all 0.1s;

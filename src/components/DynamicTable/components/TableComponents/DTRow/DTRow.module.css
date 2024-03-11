@@ -6,6 +6,18 @@
   &:nth-child(even) {
     background-color: var(--row-c);
   }
+
+  &:last-child::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--primary-c, rgb(141, 102, 205));
+    opacity: 0.3;
+  }
+
   &.selected {
     background-color: rgba(0, 30, 255, 0.1);
   }

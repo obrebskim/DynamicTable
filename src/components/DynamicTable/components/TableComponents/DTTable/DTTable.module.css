@@ -6,16 +6,18 @@
   min-height: 18.5rem;
   width: fit-content;
   font-size: 1.2rem;
-  background-color: var(--primary-c);
+  background-color: var(--background-c);
 
   &::-webkit-scrollbar {
     height: 0.6rem;
     width: 0.6rem;
     border-radius: var(--radius);
   }
+
   &::-webkit-scrollbar-track {
     background-color: var(--background-c);
   }
+
   &::-webkit-scrollbar-thumb {
     background-color: var(--primary-c);
   }
@@ -26,7 +28,7 @@
   border-radius: radius;
   border-collapse: collapse;
   width: max-content;
-  height: 100%;
+  height: auto;
   border: none;
   background-color: var(--background-c);
 }
