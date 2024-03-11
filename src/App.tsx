@@ -63,11 +63,7 @@ const generateFile = (data: TData[]) => {
 function App() {
   return (
     <>
-      <DynamicTable
-        configuration={config}
-        data={data}
-        onFileGenerate={generateFile}
-      />
+      <DynamicTable configuration={config} data={data} />
     </>
   );
 }

@@ -57,14 +57,21 @@ function DynamicTable<T extends { id: string | number }>({
       className={style["dynamic-table-wrapper"]}
     >
       <DTButtonWrapper>
-        <DTOptionButton
-          label={<DTResetIcon />}
-          title="Reset filter"
-          style={{ backgroundColor: "var(--red)", borderColor: "var(--red)" }}
-          onClick={handleResetFilters}
-          data-testid="reset-button"
-          disabled={loading}
-        />
+        <>
+          {Object.values(filters).some((filter) => filter !== "") && (
+            <DTOptionButton
+              label={<DTResetIcon />}
+              title="Reset filter"
+              style={{
+                backgroundColor: "var(--red)",
+                borderColor: "var(--red)",
+              }}
+              onClick={handleResetFilters}
+              data-testid="reset-button"
+              disabled={loading}
+            />
+          )}
+        </>
         <DTOptionButton
           title="Options"
           label={<DTSettingsIcon />}
@@ -72,12 +79,16 @@ function DynamicTable<T extends { id: string | number }>({
           data-testid="option-button"
           disabled={loading}
         />
-        <DTOptionButton
-          title="Generate a file"
-          label={<DTFileIcon />}
-          disabled={loading}
-          onClick={handleFileGenerate}
-        />
+        <>
+          {onFileGenerate && (
+            <DTOptionButton
+              title="Generate a file"
+              label={<DTFileIcon />}
+              disabled={loading}
+              onClick={handleFileGenerate}
+            />
+          )}
+        </>
       </DTButtonWrapper>
       <DTTable maxHeight={maxHeight} maxWidth={maxWidth}>
         <DTHeadRow>
