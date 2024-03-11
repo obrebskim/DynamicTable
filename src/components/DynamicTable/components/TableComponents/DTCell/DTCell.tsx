@@ -85,11 +85,8 @@ const DTCell = ({
       onClick={onRowSelect}
       className={clsx(
         style.cell,
-        separator &&
-          style.separator &&
-          propertyName === "id" &&
-          onRowSelect &&
-          style.cursor
+        separator && style.separator,
+        propertyName === "id" && onRowSelect && style.cursor
       )}
     >
       <div className={style["cell-wrapper"]}>
