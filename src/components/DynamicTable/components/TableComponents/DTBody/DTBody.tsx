@@ -1,9 +1,13 @@
-type Props = {children: JSX.Element | JSX.Element[]}
+import styled from "styled-components";
 
-const DTBody = ({children}: Props) => {
-  return (
-    <tbody>{children}</tbody>
-  )
-}
+type Props = { children: JSX.Element | JSX.Element[] };
 
-export default DTBody
+const DTBody = ({ children }: Props) => {
+  return <DTBodyStyled>{children}</DTBodyStyled>;
+};
+
+export default DTBody;
+
+const DTBodyStyled = styled.tbody`
+  min-height: 16rem;
+`;
