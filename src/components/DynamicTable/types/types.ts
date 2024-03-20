@@ -32,6 +32,7 @@ export type TDTConfiguration<T> = {
   columns: TDTColumn[];
   options?: {
     selectableRow?: boolean;
+    selectablePropertyName?: string;
     rowSeparator?: boolean;
     rowButtons?: TDTRowButton<T>[];
     buttons?: TDTButton<T>[];

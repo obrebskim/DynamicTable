@@ -46,6 +46,11 @@ function useDynamicTable<T extends { id: string | number }>({
   const [isOptionWindowVisible, setIsOptionWindowVisible] = useState(false);
 
   // EFFECTS
+
+  useEffect(() => {
+    data.map((row) => ({ ...row, id: row.id, checked: false }));
+  }, [data]);
+
   useEffect(() => {
     let filtered = structuredClone(dataset);
     Object.keys(filters).forEach((key) => {

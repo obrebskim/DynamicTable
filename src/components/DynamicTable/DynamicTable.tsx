@@ -131,7 +131,12 @@ function DynamicTable<T extends { id: string | number }>({
                       id={tr.id}
                       propertyName={key}
                       value={tr[key]}
-                      bold={key === "id"}
+                      bold={
+                        key ===
+                        (configuration.options?.selectablePropertyName
+                          ? configuration.options?.selectablePropertyName
+                          : "id")
+                      }
                       editable={
                         configuration.columns.find(
                           (column) => column.propertyName === key
@@ -139,9 +144,19 @@ function DynamicTable<T extends { id: string | number }>({
                       }
                       onDataChange={handleChangeData}
                       onRowSelect={
-                        key === "id" ? () => handleSelectRow(tr.id) : undefined
+                        key ===
+                        (configuration.options?.selectablePropertyName
+                          ? configuration.options?.selectablePropertyName
+                          : "id")
+                          ? () => handleSelectRow(tr.id)
+                          : undefined
                       }
-                      pointer={key === "id"}
+                      pointer={
+                        key ===
+                        (configuration.options?.selectablePropertyName
+                          ? configuration.options?.selectablePropertyName
+                          : "id")
+                      }
                       separator={configuration.options?.rowSeparator}
                       type={
                         configuration.columns.find(
