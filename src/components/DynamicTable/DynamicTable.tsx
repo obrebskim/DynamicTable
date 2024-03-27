@@ -90,7 +90,7 @@ function DynamicTable<T extends { id: string | number }>({
           )}
         </>
       </DTButtonWrapper>
-      <DTTable maxHeight={maxHeight} maxWidth={maxWidth}>
+      <DTTable>
         <DTHeadRow>
           <>
             {columns
@@ -191,18 +191,23 @@ function DynamicTable<T extends { id: string | number }>({
           ))}
         </DTBody>
       </DTTable>
-      <DTButtonWrapper>
-        {configuration.options?.buttons?.map((button, index) => (
-          <DTButton
-            label={button.label}
-            title={button.title}
-            key={index}
-            style={{ borderColor: button.color, backgroundColor: button.color }}
-            onClick={() => button.fn(dataset)}
-            disabled={dataset.length === 0 || loading}
-          />
-        ))}
-      </DTButtonWrapper>
+      {configuration.options?.buttons && (
+        <DTButtonWrapper>
+          {configuration.options?.buttons?.map((button, index) => (
+            <DTButton
+              label={button.label}
+              title={button.title}
+              key={index}
+              style={{
+                borderColor: button.color,
+                backgroundColor: button.color,
+              }}
+              onClick={() => button.fn(dataset)}
+              disabled={dataset.length === 0 || loading}
+            />
+          ))}
+        </DTButtonWrapper>
+      )}
       {isOptionWindowVisible && (
         <DTOptionWindow
           closeWindow={() => setIsOptionWindowVisible(false)}
@@ -210,7 +215,9 @@ function DynamicTable<T extends { id: string | number }>({
           toggleColumnVisibility={handleToggleVisibleColumn}
         />
       )}
-      {loading && <DTLoader />}
+      {loading && (
+        <DTLoader withButtons={configuration.options?.buttons !== undefined} />
+      )}
     </div>
   );
 }

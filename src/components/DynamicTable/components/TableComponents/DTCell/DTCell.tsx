@@ -86,7 +86,7 @@ const DTCell = ({
       className={clsx(
         style.cell,
         separator && style.separator,
-        propertyName === "id" && onRowSelect && style.cursor
+        (propertyName === "id" || pointer) && onRowSelect && style.cursor
       )}
     >
       <div className={style["cell-wrapper"]}>
@@ -109,7 +109,7 @@ const DTCell = ({
             className={clsx(
               typeof value === "number" && "number",
               bold && "bold",
-              pointer && pointer
+              pointer && style.cursor
             )}
           >
             {value}

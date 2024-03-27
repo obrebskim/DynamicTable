@@ -11,6 +11,10 @@
   align-items: center;
   z-index: 5;
   border-radius: var(--radius, 0.4rem);
+
+  &.without-buttons {
+    bottom: 1rem;
+  }
 }
 
 .lds-ring {
