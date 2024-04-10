@@ -25,6 +25,7 @@ export type TDTColumn = {
   propertyName: string;
   bold?: boolean;
   type?: TDTCellType;
+  maxWidth?: string | number;
   options?: { label: string; value: string | number }[];
 };
 

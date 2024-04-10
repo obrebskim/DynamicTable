@@ -18,6 +18,7 @@ type Props = {
   propertyName: string;
   type?: TDTCellType;
   options?: { label: string; value: string | number }[];
+  maxWidth?: string | number;
   onDataChange?: (
     id: TDTId,
     propertyName: string,
@@ -38,6 +39,7 @@ const DTCell = ({
   separator,
   type,
   options = [],
+  maxWidth,
 }: Props) => {
   const [editedValue, setEditionValue] = useState<string | number | boolean>(
     false
@@ -83,6 +85,7 @@ const DTCell = ({
   return (
     <td
       onClick={onRowSelect}
+      style={{ maxWidth: maxWidth ? maxWidth : "auto" }}
       className={clsx(
         style.cell,
         separator && style.separator,

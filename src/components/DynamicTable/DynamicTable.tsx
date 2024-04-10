@@ -131,6 +131,10 @@ function DynamicTable<T extends { id: string | number }>({
                       id={tr.id}
                       propertyName={key}
                       value={tr[key]}
+                      maxWidth={
+                        columns.find((column) => column.propertyName === key)
+                          ?.maxWidth || "auto"
+                      }
                       bold={
                         key ===
                         (configuration.options?.selectablePropertyName
