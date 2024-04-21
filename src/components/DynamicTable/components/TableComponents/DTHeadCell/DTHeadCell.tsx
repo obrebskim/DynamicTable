@@ -8,17 +8,17 @@ import DTSortAscIcon from "../../Icons/DTSortAsc.icon";
 import DTSortDescIcon from "../../Icons/DTSortDesc.icon";
 import DTCloseIcon from "../../Icons/DTClose.icon";
 
-type Props = {
+type Props<T> = {
   label: string;
   interactive?: boolean;
-  propertyName: string;
+  propertyName: keyof T;
   filterValue: string;
   type?: TDTCellType;
-  onSort: (direction: TDTSortDirection, propertyName: string) => void;
-  onFilter: (propertyName: string, value: string) => void;
+  onSort: (direction: TDTSortDirection, propertyName: keyof T) => void;
+  onFilter: (propertyName: keyof T, value: string) => void;
 };
 
-const DTHeadCell = ({
+const DTHeadCell = <T,>({
   label,
   filterValue,
   onFilter,
@@ -26,7 +26,7 @@ const DTHeadCell = ({
   propertyName,
   interactive = false,
   type,
-}: Props) => {
+}: Props<T>) => {
   const [localFilterValue, setLocalFilterValue] = useState(filterValue);
   const cellRef = useRef<HTMLTableCellElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);

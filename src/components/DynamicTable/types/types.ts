@@ -18,11 +18,11 @@ type TDTRowButton<T> = {
   fn: (data: T) => void;
 };
 
-export type TDTColumn = {
+export type TDTColumn<T> = {
   label: string;
   interactions?: { sortable?: boolean; editable?: boolean };
   visible?: boolean;
-  propertyName: string;
+  propertyName: keyof T;
   bold?: boolean;
   type?: TDTCellType;
   maxWidth?: string | number;
@@ -30,7 +30,7 @@ export type TDTColumn = {
 };
 
 export type TDTConfiguration<T> = {
-  columns: TDTColumn[];
+  columns: TDTColumn<T>[];
   options?: {
     selectableRow?: boolean;
     selectablePropertyName?: string;

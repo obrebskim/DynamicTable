@@ -11,11 +11,11 @@ const createFilters = <T extends { id: string | number }>(
   const sortable = config.columns.filter(
     (column) => column.interactions?.sortable
   );
-  const filters: Record<string, string> = {};
+  const filters: Partial<Record<keyof T, string>> = {};
   sortable.forEach((column) => {
     filters[column.propertyName] = "";
   });
-  return filters;
+  return filters as Record<keyof T, string>;
 };
 
 type Extendable<T> = T & IndexableIDTExtend;
@@ -54,10 +54,11 @@ function useDynamicTable<T extends { id: string | number }>({
   useEffect(() => {
     let filtered = structuredClone(dataset);
     Object.keys(filters).forEach((key) => {
+      const filterKey = key as keyof T;
       filtered = filtered.filter((filter) =>
-        (filter[key] + "")
+        (filter[filterKey] + "")
           .toLowerCase()
-          .includes(filters[key as string].toLowerCase())
+          .includes(filters[filterKey].toLowerCase())
       );
     });
     setFilteredDataset(filtered);
@@ -96,7 +97,7 @@ function useDynamicTable<T extends { id: string | number }>({
   const handleChangeData = useCallback(
     (
       id: string | number,
-      propertyName: string,
+      propertyName: keyof T,
       value: boolean | string | number
     ) => {
       setDataset((prev) =>
@@ -111,7 +112,7 @@ function useDynamicTable<T extends { id: string | number }>({
     []
   );
 
-  const handleFilterBy = useCallback((propertyName: string, value: string) => {
+  const handleFilterBy = useCallback((propertyName: keyof T, value: string) => {
     setFilters((prev) => ({ ...prev, [propertyName]: value }));
   }, []);
 
@@ -120,7 +121,7 @@ function useDynamicTable<T extends { id: string | number }>({
   }, []);
 
   const handleSort = useCallback(
-    (direction: TDTSortDirection, propertyName: string) => {
+    (direction: TDTSortDirection, propertyName: keyof T) => {
       setDataset((prev) =>
         [...prev].sort((a, b) => {
           if (direction === "asc") {

@@ -8,26 +8,26 @@ import DTEditInput from "../../DTEditInput/DTEditInput";
 import DTEditIcon from "../../Icons/DTEdit.icon";
 import DTDropdown from "../../DTDropdown/DTDropdown";
 
-type Props = {
+type Props<T> = {
   value: string | number | boolean;
   bold?: boolean;
   separator?: boolean;
   pointer?: boolean;
   editable?: boolean;
   id: string | number;
-  propertyName: string;
+  propertyName: keyof T;
   type?: TDTCellType;
   options?: { label: string; value: string | number }[];
   maxWidth?: string | number;
   onDataChange?: (
     id: TDTId,
-    propertyName: string,
+    propertyName: keyof T,
     value: boolean | string | number
   ) => void;
   onRowSelect?: () => void;
 };
 
-const DTCell = ({
+const DTCell = <T,>({
   id,
   propertyName,
   value,
@@ -40,7 +40,7 @@ const DTCell = ({
   type,
   options = [],
   maxWidth,
-}: Props) => {
+}: Props<T>) => {
   const [editedValue, setEditionValue] = useState<string | number | boolean>(
     false
   );

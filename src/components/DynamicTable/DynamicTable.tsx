@@ -97,7 +97,7 @@ function DynamicTable<T extends { id: string | number }>({
               .filter((column) => column.visible)
               .map((th) => (
                 <DTHeadCell
-                  key={th.propertyName}
+                  key={th.propertyName.toString()}
                   label={th.label}
                   interactive={th.interactions?.sortable}
                   propertyName={th.propertyName}
@@ -126,8 +126,8 @@ function DynamicTable<T extends { id: string | number }>({
                   .filter((column) => column.visible)
                   .map((column) => column.propertyName)
                   .map((key) => (
-                    <DTCell
-                      key={key}
+                    <DTCell<T>
+                      key={key as string}
                       id={tr.id}
                       propertyName={key}
                       value={tr[key]}
