@@ -1,22 +1,24 @@
 import useDynamicTable from "./hooks/useDynamicTable";
 import { TDTConfiguration } from "./types/types";
 import style from "./DynamicTable.module.css";
-import DTButtonWrapper from "./components/DTButtonWrapper/DTButtonWrapper";
-import DTOptionButton from "./components/Buttons/DTOptionButton/DTOptionButton";
-import DTResetIcon from "./components/Icons/DTReset.icon";
-import DTSettingsIcon from "./components/Icons/DTSettings.icon";
-import DTFileIcon from "./components/Icons/DTFile.icon";
-import DTTable from "./components/TableComponents/DTTable/DTTable";
-import DTHeadRow from "./components/TableComponents/DTHeadRow/DTHeadRow";
-import DTHeadCell from "./components/TableComponents/DTHeadCell/DTHeadCell";
-import DTBody from "./components/TableComponents/DTBody/DTBody";
-import DTRow from "./components/TableComponents/DTRow/DTRow";
-import DTCell from "./components/TableComponents/DTCell/DTCell";
-import DTButtonsCell from "./components/TableComponents/DTButtonsCell/DTButtonsCell";
-import DTRowButton from "./components/Buttons/DTRowButton/DTRowButton";
-import DTButton from "./components/Buttons/DTButton/DTButton";
-import DTOptionWindow from "./components/DTOptionWindow/DTOptionWindow";
-import DTLoader from "./components/DTLoader/DTLoader";
+import {
+  DTBody,
+  DTButton,
+  DTButtonWrapper,
+  DTButtonsCell,
+  DTCell,
+  DTFileIcon,
+  DTHeadCell,
+  DTHeadRow,
+  DTLoader,
+  DTOptionButton,
+  DTOptionWindow,
+  DTResetIcon,
+  DTRow,
+  DTRowButton,
+  DTSettingsIcon,
+  DTTable,
+} from "./components";
 
 function DynamicTable<T extends { id: string | number }>({
   configuration,

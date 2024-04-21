@@ -56,10 +56,6 @@ const config: TDTConfiguration<TData> = {
   },
 };
 
-const generateFile = (data: TData[]) => {
-  console.log(data);
-};
-
 function App() {
   return (
     <>
